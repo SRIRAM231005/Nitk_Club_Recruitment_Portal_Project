@@ -5,7 +5,7 @@
 - [Demo Video](#demo-video)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Installation and Setup](#installation-setup)
+- [Installation and Setup](#installation-and-setup)
 - [Running the Application](#running-the-application)
 - [Contacts](#contacts)
 
