@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleIndex.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,
+700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Announcement</title>
+</head>
+<body>
+    <div id="header">
+        <div class="logo" style="display: flex;align-items: center; gap: 10px;font-size: 27px;margin-left: 10px;">
+            <img src="images/logo.png" alt="Comp" style="height: 70px; width: 70px;">
+            <div>
+                <div>NITK Club</div>
+                <div style="color: rgb(220, 15, 15);">Recruitments</div>
+            </div>
+        </div>
+        <div class="navigation">
+            <div class="navdisplay">
+                <div style="display: block;position: relative;" class="FullAccount">
+                    <div><button class="Account" onclick="displayAccount();">
+                        <div>Accounts</div>
+                        <img src="images/accountsLogo.png" style="border-radius: 50%;height:30px;width:30px;">
+                    </button></div>
+                    <div class="AccountBox" style="display: none;">
+                        <div class="displayacc displayacc_js">hi</div>
+                    </div>
+                </div>
+            </div>      
+            <img src="images/nitkLogo.png" style="height: 70px; width: 70px;" class="nitkLogoo">
+            <div class="menu"><button onclick="displayAccount2();"><img src="images/menu.png"></button>
+                <div class="menuOpt">
+                    <div class="back"><button onclick="displayAccount2();"><img src="images/back arrow.png"></button></div>
+                    <div class="menuOptions displayacc_js"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="font-size: 25px; margin-top: 40px;margin-left: 20px;color: rgb(220, 15, 15);">Announcements</div>
+    <div class="announcementArea"></div>
+    <div style="font-size: 25px; margin-top: 40px;margin-left: 20px;color: rgb(220, 15, 15);">Registration Forms</div>
+    <div class="registrationArea"></div>
+
+    <div id="popupG">
+        <div class="popupG">
+            <div class="totalContentG">
+                <div><img src="images/icons8-tick-48.png" style="height: 35px;width: 35px;"></div>
+                <div class="toastContent">Login Successful</div>
+            </div>
+            <div>&#x2715;</div>
+        </div>
+        <div class="timebar-containerG">
+            <div class="timebarG"></div>
+        </div>
+    </div>
+
+    <script src="announcement.js"></script>
+    <script>
+
+        let resultMain;
+        function displayAccount(){
+            let accountBox = document.querySelector('.AccountBox');
+            if(accountBox.style.display === 'none'){
+                accountBox.style.display = 'block';
+            }else{
+                accountBox.style.display = 'none';
+            }
+        }
+
+        function displayAccount2(){
+            let accountBox = document.querySelector('.menuOpt');
+            if(accountBox.style.display === 'none'){
+                accountBox.style.display = 'block';
+            }else{
+                accountBox.style.display = 'none';
+            }
+        }
+
+        function disp(){
+            resultMain = JSON.parse(localStorage.getItem("resultMain"));
+            if(!resultMain){
+                displayLogin();
+            }else{
+                if(resultMain.userRole === 'Student'){
+                    const displayacc = document.querySelectorAll('.displayacc_js');
+                    displayacc.forEach((acc) =>{
+                        acc.innerHTML = `<div style="text-align:center;"><img src="images/accountsLogo.png" style="border-radius:50%;height:70px;width:70px;"></div>
+                                            <div style="text-align:center;font-size:23px;margin-bottom:5px;">Hi, ${resultMain.username}!</div>
+                                            <div style="text-align:center;margin-top:0;font-size:15px;color:#c9c9ca;">${resultMain.email}</div>
+                                            <div style="margin-top:15px;background-color:#141414;padding:10px;border-radius:10px;">${resultMain.userRole}</div>
+                                            <div style="border-bottom: 1px solid #5c5b5b;"></div>
+                                            <div style="font-size:13px;color: #c9c9ca; text-align:left;">More Options:</div>
+                                            <div style="margin-top:15px;background-color:#141414;border-radius:10px;">
+                                                <div style="padding:15px;border-bottom: 1px solid #5c5b5b;cursor:pointer;margin:0;" onclick="window.location.href= 'calender.html';">Calender</div>
+                                                <div style="padding:15px;cursor:pointer;margin:0;" onclick="window.location.href = 'PreferenceForm.html';">Preference Order</div>
+                                            </div>
+                                            <button onclick="userLogout();" style="padding-left:30px;padding-right:30px;">Logout</button>`;
+                    })
+                }
+                else if(resultMain.userRole === 'Club Convener'){
+                    const displayacc = document.querySelectorAll('.displayacc_js');
+                    console.log('hi:',displayacc);
+                    displayacc.forEach((acc) =>{
+                        acc.innerHTML = `<div style="text-align:center;"><img src="images/accountsLogo.png" style="border-radius:50%;height:70px;width:70px;"></div>
+                                            <div style="text-align:center;font-size:23px;margin-bottom:5px;">Hi, ${resultMain.username}!</div>
+                                            <div style="text-align:center;margin-top:0;font-size:15px;color:#c9c9ca;">${resultMain.email}</div>
+                                            <div style="margin-top:15px;background-color:#141414;padding:10px;border-radius:10px;">${resultMain.userRole}</div>
+                                            <div style="border-bottom: 1px solid #5c5b5b;"></div>
+                                            <div style="font-size:13px;color: #c9c9ca; text-align:left;">More Options:</div>
+                                            <div style="margin-top:15px;background-color:#141414;border-radius:10px;">
+                                                <div style="padding:15px;border-bottom: 1px solid #5c5b5b;cursor:pointer;margin:0;" onclick="window.location.href= 'calender.html';">Calender</div>
+                                                <div style="padding:15px;cursor:pointer;margin:0;" onclick="window.location.href = 'clubLogin.html';">Club Login</div>
+                                            </div>
+                                            <button onclick="userLogout();" style="padding-left:30px;padding-right:30px;">Logout</button>
+                                            `;
+                    })
+                }else{
+                    const displayacc = document.querySelectorAll('.displayacc_js');
+                    displayacc.forEach((acc) =>{
+                        acc.innerHTML = `<div style="text-align:center;"><img src="images/accountsLogo.png" style="border-radius:50%;height:70px;width:70px;"></div>
+                                            <div style="text-align:center;font-size:23px;margin-bottom:5px;">Hi, ${resultMain.username}!</div>
+                                            <div style="text-align:center;margin-top:0;font-size:15px;color:#c9c9ca;">${resultMain.email}</div>
+                                            <div style="margin-top:15px;background-color:#141414;padding:10px;border-radius:10px;">${resultMain.userRole}</div>
+                                            <div style="border-bottom: 1px solid #5c5b5b;"></div>
+                                            <div style="font-size:13px;color: #c9c9ca; text-align:left;">More Options:</div>
+                                            <div style="margin-top:15px;background-color:#141414;border-radius:10px;">
+                                                <div style="padding:15px;border-bottom: 1px solid #5c5b5b;cursor:pointer;margin:0;" onclick="window.location.href= 'calender.html';">Calender</div>
+                                                <div style="padding:15px;cursor:pointer;margin:0;" onclick="window.location.href = 'AdminPage.html';">Admin Page</div>
+                                            </div>
+                                            <button onclick="userLogout();" style="padding-left:30px;padding-right:30px;">Logout</button>
+                                            `;
+                    })
+                }
+            }
+        }
+
+        let dialoguee;
+        function userLogin() {
+            dialogue = document.querySelector('.d5');
+            if(!dialogue){
+                const body = document.body;
+                dialoguee = document.createElement('dialog');
+                dialoguee.classList.add('d5');
+                body.appendChild(dialoguee);
+            }
+            dialoguee.innerHTML = `<div style="margin-bottom:20px;">User Login</div>
+                                  <input type="text" id="username3" class="InputID" placeholder="User Name"><br><br>
+                                  <input type="password" id="password3" class="InputID" placeholder="password"><br><br>
+                                  <button type="submit" onclick="userLog();">Submit</button>`;
+            dialoguee.showModal();
+        }
+
+        let dialogue1;
+        function userLogout(){
+            const body = document.body;
+            dialogue1;
+            dialogue1 = document.createElement('dialog');
+            dialogue1.classList.add('d6');
+            dialogue1.innerHTML = `
+                                  <div>Are you sure you want to logout</div>
+                                  <div class="logoutButton">
+                                    <div class="Yes" onclick="Logout();displayLogin();dialogueclose();">Yes</div>
+                                    <div class="No" onclick="dialogueclose();">No</div>
+                                  </div>`;
+            body.appendChild(dialogue1);
+            dialogue1.showModal();                      
+        }
+
+        async function Logout() {
+            resultMain = JSON.parse(localStorage.getItem("resultMain"));
+            let data1 = {username: resultMain.username};
+            console.log(data1);
+            localStorage.removeItem("resultMain");
+            /*try {
+            const response = await fetch('http://localhost:8006/user/logout', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data1),
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const result18 = await response.json();
+            console.log(result18);
+            }catch (error) {
+                console.error('Error:', error);
+            }*/ 
+        }
+
+        function displayLogin(){
+            const displayacc = document.querySelector('.displayacc_js');
+            displayacc.innerHTML = `<div style="font-size:20px; margin-bottom:20px;">You have not Login</div>
+                                    <div style="margin-bottom:40px;"><button onclick="userLogin();" style="padding-left:30px;padding-right:30px;">Sign In</button></div>
+                                    <div style="font-size:15px;">Create an Account <a href="userreg.html">Sign Up</a></div>`;
+            const displaymenuacc = document.querySelector('.menuOptions');
+            displaymenuacc.innerHTML = `<div style="font-size:20px; margin-bottom:20px;">You have not Login</div>
+                                        <div style="margin-bottom:40px;"><button onclick="userLogin();" style="padding-left:30px;padding-right:30px;">Sign In</button></div>
+                                        <div style="font-size:15px;">Create an Account <a href="userreg.html" style="color: aqua;">Sign Up</a></div>`;
+        }
+
+        function dialogueclose(){
+            dialogue1.close();
+        }
+
+        async function userLog() {
+            const username = document.getElementById('username3').value;
+            const password = document.getElementById('password3').value;
+
+            const data = {
+                username: username,
+                password: password   
+            };
+
+            try {
+            const response = await fetch('http://localhost:8006/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const result17 = await response.json();
+            resultMain = result17;
+            localStorage.setItem('resultMain', JSON.stringify(resultMain));
+            console.log(result17);
+            dialoguee.close();
+            displayAccount();
+
+            const popup = document.getElementById('popupG');
+                const timebar = document.querySelector('.timebarG');
+                popup.style.transform = 'translateX(1%)';
+                timebar.style.transform = 'scaleX(0)';
+                setTimeout(()=>{
+                    popup.style.transform = 'translateX(120%)';
+                    setTimeout(()=>{
+                        timebar.style.transition = 'none'; 
+                        timebar.style.transform = 'scaleX(1)';
+                        timebar.offsetWidth;
+                        timebar.style.transition = 'transform 3s linear';
+                        disp();
+                    },200)
+                },3000);
+
+            }catch (error) {
+                console.error('Error:', error);
+            } 
+        }
+
+        disp();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="clubLogin.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Club Recruitment Portal</title>
+</head>
+<body>
+    <div id="header" style="justify-content: left;gap: 10px;" onclick="window.location.href = 'index.html';">
+        <div class="logo" style="display: flex;align-items: center;font-size: 27px;margin-left: 10px;"></div>
+            <img src="images/logo.png" alt="Comp" style="height: 70px; width: 70px;">
+            <div>
+                <div>NITK Club</div>
+                <div style="color: rgb(220, 15, 15);">Recruitments</div>
+            </div>
+        </div>
+    </div>
+        <div id="InputBox">
+            <div class="topSecDiv">
+                <div class="topSec">
+                    <div class="special special1" onclick="display1();">Register</div>
+                    <div class="special special2" onclick="display2();">Login</div>
+                </div>
+            </div>
+            <div id="recRegistratin">
+                <div id="forms">
+                    <div>Club Name:</div>
+                    <div class="inp1"><input type="text" placeholder="Enter club name" class="name InputID"></div>
+                    <div>Club Image URL:</div>
+                    <div class="inp1"><input type="text" placeholder="Enter image URL" class="imageURL InputID"></div>
+                    <div>Club Type:</div>
+                    <div class="inp1">
+                        <select class="clubtype">
+                            <option value="Exclusive">Exclusive</option>
+                            <option value="Non Exclusive">Non Exclusive</option>
+                        </select>
+                    </div>
+                    <div>Number of Rounds:</div>
+                    <div class="inp1"><input type="number" placeholder="Enter number of rounds" class="number1 InputID"></div>
+                    <div>Number of Sigs:</div>
+                    <div class="inp1"><input type="number" placeholder="Enter number of SIGs" class="numbers InputID"></div>
+                    <div id="num"></div>
+                    <div>Set Password:</div>
+                    <div class="inp1"><input type="password" placeholder="Enter password" class="paswd InputID" minlength="8" style="-webkit-text-security: square"></div>
+                    <div style="margin-top: 10px;"><button type="submit" class="button1" style="margin-top: 10px;">Submit</button></div>
+                </div>
+            </div>
+            <div id="recLogin">
+                <div id="forms">
+                    <div>Club Name:</div>
+                    <div class="inp1"><input type="text" placeholder="Enter club name" class="name1 InputID"></div>
+                    <div>Set Password:</div>
+                    <div class="inp1"><input type="password" placeholder="Enter password" class="paswd1 InputID" minlength="8" style="-webkit-text-security: square"></div>
+                    <div style="margin-top: 10px;"><button type="submit" class="button2" style="margin-top: 10px;">Submit</button></div>
+                </div>
+            </div>
+        </div>    
+    <div id="popupR">
+        <div class="popupR">
+            <div class="totalContent">
+                <div><img src="images/icons8-cross-48.png" style="height: 35px;width: 35px;"></div>
+                <div class="toastContent">Invalid Login Details</div>
+            </div>
+            <div>&#x2715;</div>
+        </div>
+        <div class="timebar-containerR">
+            <div class="timebarR"></div>
+        </div>
+    </div>
+    <script>
+
+        //Function to display registration form -----------------------------------
+        function display1(){
+            document.getElementById("recRegistratin").style.display = "block";
+            document.getElementById("recLogin").style.display = "none";
+            document.querySelector('.special1').style.background = "white";
+            document.querySelector('.special1').style.color = "black";
+            document.querySelector('.special2').style.background = "transparent";
+            document.querySelector('.special2').style.color = "white";
+        }
+        //Function to display Login form ------------------------------------------
+        function display2(){
+            document.getElementById("recLogin").style.display = "block";
+            document.getElementById("recRegistratin").style.display = "none";
+            document.querySelector('.special1').style.background = "transparent";
+            document.querySelector('.special1').style.color = "white";
+            document.querySelector('.special2').style.background = "white";
+            document.querySelector('.special2').style.color = "black";
+        }
+        //Function to count number of Sigs ----------------------------------------
+        document.querySelector('.numbers').addEventListener('input', numsig);
+        let i;
+        function numsig(){
+            i = document.querySelector('.numbers').value;
+            const forms = document.getElementById('num');
+            forms.innerHTML = ``;
+
+            for(let j=1; j<=i; j++){
+                const poke = document.createElement('div');
+                poke.classList.add('sigNameDiv');
+                poke.innerHTML = `<div>SIG${j}</div><input type="text" placeholder="Enter SIG Name" id="hobby${j}" class="InputID"><br><br>`;
+                forms.appendChild(poke);
+            }
+        }
+
+        //Functions to post the Club registration details -------------------------
+
+        let result;
+        let resultMain = JSON.parse(localStorage.getItem("resultMain"));
+
+        document.addEventListener('DOMContentLoaded', function() {    
+        const button1 = document.querySelector('.button1');
+        button1.addEventListener('click',async (e) =>{
+            e.preventDefault();
+            let token = resultMain.token;
+            const ClubName = document.querySelector('.name').value;
+            const imageURL = document.querySelector('.imageURL').value;
+            const clubType = document.querySelector('.clubtype').value;
+            const rounds = document.querySelector('.number1').value;
+            const password = document.querySelector('.paswd').value;
+            const SigArr = [];
+            const Round1 = [];
+            const Round2 = [];
+            for(let k=1; k<=i; k++){
+                let sig = document.getElementById(`hobby${k}`).value;
+                console.log(sig);
+                SigArr[k-1] = sig;
+            }
+            try {
+            const response = await fetch('http://localhost:8006/club/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: `clubName=${encodeURIComponent(ClubName)}&imageURL=${encodeURIComponent(imageURL)}&clubType=${encodeURIComponent(clubType)}&rounds=${encodeURIComponent(rounds)}&clubSigs=${encodeURIComponent(SigArr)}&password=${encodeURIComponent(password)}`,
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            result = await response.json();
+            console.log(result);
+            localStorage.setItem("result" , JSON.stringify(result));
+            window.location.href = 'club.html';
+            } catch (error) {
+            console.error('Error:', error);
+            }
+        });
+        });
+
+        //Function to post Login details for Authentication --------------------------
+
+        document.addEventListener('DOMContentLoaded', function() {    
+        const button2 = document.querySelector('.button2');
+        button2.addEventListener('click',async (e) =>{
+            e.preventDefault();
+            let token = resultMain.token;
+            const ClubName = document.querySelector('.name1').value;
+            const password = document.querySelector('.paswd1').value;
+            try {
+            const response = await fetch('http://localhost:8006/club/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: `clubName=${encodeURIComponent(ClubName)}&password=${encodeURIComponent(password)}`,
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            result = await response.json();
+            if(result.message === "Invalid Club Name or Password"){
+                const popup = document.getElementById('popupR');
+                const timebar = document.querySelector('.timebarR');
+                popup.style.transform = 'translateX(1%)';
+                timebar.style.transform = 'scaleX(0)';
+                setTimeout(()=>{
+                    popup.style.transform = 'translateX(110%)';
+                    setTimeout(()=>{
+                        timebar.style.transition = 'none'; 
+                        timebar.style.transform = 'scaleX(1)';
+                        timebar.offsetWidth;
+                        timebar.style.transition = 'transform 3s linear';
+                    },200)
+                },3000);
+            }else{
+                console.log(result);
+                localStorage.setItem("result" , JSON.stringify(result));
+                window.location.href = 'club.html';
+            }
+            } catch (error) {
+            console.error('Error:', error);
+            }
+        });
+        });
+    </script>
+</body>
+</html>
