@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const {MongoseConnect} = require("./connection");
-MongoseConnect('mongodb://127.0.0.1:27017/clubrec').then(()=> console.log("Mongoose Connected"));
+/*MongoseConnect('mongodb://127.0.0.1:27017/clubrec').then(()=> console.log("Mongoose Connected"));*/
+MongoseConnect('mongodb://127.0.0.1:27017/clubrectesting').then(()=> console.log("Mongoose Test Connected"));
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const {authenticateToken} = require('./middleware/auth');
