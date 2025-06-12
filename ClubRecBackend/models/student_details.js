@@ -40,7 +40,13 @@ const UserSchema = new mongoose.Schema({
             Status:{
                 type:String,
             }
-        }]
+        }],
+        sigDescription:{
+            type:String,
+        },
+        sigQuestions:{
+            type:[String],
+        }
     }],
     description:{
         type:String,
