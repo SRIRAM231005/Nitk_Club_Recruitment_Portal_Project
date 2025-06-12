@@ -1,0 +1,60 @@
+@keyframes bounceInTop {
+    0% {
+      transform: translateY(-500px);
+      opacity: 0;
+    }
+    60% {
+      transform: translateY(30px);
+      opacity: 1;
+    }
+    80% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+}
+  
+  .popupTag {
+    position: fixed;
+    top: 20px;
+    left: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: white;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1000;
+    display: none;
+  }
+
+  .textContent a{
+    margin-left: 10px;
+    font-weight: normal;
+    color: rgb(0, 89, 255);
+  }
+
+  a:hover{
+    color: rgb(3, 73, 203)
+  }
+  
+  .show {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    animation: bounceInTop 0.8s ease;
+  }
+  .lucidiconspopup{
+    width: 30px;
+    height: 30px;
+  }
+
+  
+  
