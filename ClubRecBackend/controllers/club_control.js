@@ -3,10 +3,20 @@ const scheduleDetails = require('../models/schedule_details');
 const AnnouncementDetails = require('../models/announcement_details');
 const regDetails = require('../models/student_details');
 const sigprefdetail = require('../models/sigPreference_details');
+const bcrypt = require('bcrypt');
 
 //Function to post details of club
 async function RegisterDetails(req , res){
     const { clubName, imageURL, clubType, rounds, clubSigs, password } = req.body;
+
+    if (!clubName || !imageURL || !clubType || !rounds || !clubSigs || !password) {
+        return res.status(400).json({ error: "All fields are required." });
+    }
+    
+    const plainPassword = password;
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
+    
     let clubSigArray = req.body.clubSigs.split(',');
     const club = await clubDetails.create({
         clubName : clubName,
@@ -14,10 +24,9 @@ async function RegisterDetails(req , res){
         clubType: clubType,
         rounds : rounds,
         clubSigs : clubSigs,
-        password: password,
+        password: hashedPassword,
     });
 
-    console.log(clubSigArray[0]);
     for (let i=0; i<clubSigArray.length; i++){
         await scheduleDetails.create({
             clubName : req.body.clubName,
@@ -26,11 +35,13 @@ async function RegisterDetails(req , res){
     }    
     let formattedClubSigsArray = clubSigArray.map(sig => ({
         clubSigName: sig,
-        studentList: [[]] // Initializing studentList as an empty array
+        studentList: [] 
     })); 
         await regDetails.findOneAndUpdate(
             {clubName : req.body.clubName},
-            { $set: { clubSigs: formattedClubSigsArray} }, // Set the clubSigs array
+            { 
+                $set: { clubSigs: formattedClubSigsArray},
+            },
             { new: true, upsert: true } 
         )
 
@@ -41,13 +52,18 @@ async function RegisterDetails(req , res){
 //Function to ckeck Login Details
 async function Login(req , res){
     const { clubName, password } = req.body;
-    const det = await clubDetails.findOne({ clubName: clubName , password: password });
+    const det = await clubDetails.findOne({ clubName: clubName });
 
     if(!det){
-        return res.json({message: "Invalid Club Name or Password"});
-    }else{
-        return res.json({clubName: det.clubName ,imageURL: det.imageURL, rounds: det.rounds, clubSigs: det.clubSigs});
+        return res.status(400).json({message: "Invalid Club Name or Password"});
     }
+    
+    const isMatch = await bcrypt.compare(password, det.password);
+    if(!isMatch){
+        return res.status(409).json({message: "Invalid Club Name or Password"});
+    }
+
+    return res.json({clubName: det.clubName ,imageURL: det.imageURL, rounds: det.rounds, clubSigs: det.clubSigs});
 }
 
 //Function to get Details of Schedules
@@ -64,14 +80,12 @@ async function GetDetails(req , res){
 //Function to update the Schedules
 async function SetDates(req , res){
     const { clubName,clubSigName, Dates } = req.body;
-    console.log(req.body.clubSigName);
     const date = await scheduleDetails.findOneAndUpdate(
         {clubName: clubName,clubSigName : clubSigName},
         { $set : {Dates : Dates}},
         {new: true}
     );
     
-    console.log(date);
     if(!date){
         return res.json({message: "Invalid Club Sig Name"});
     }else{
@@ -104,12 +118,29 @@ async function GetReg(req , res){
 
 //Function to update the description of Registration Form
 async function SetRegForm(req , res){
-    const {clubName,description,questions} = req.body;
+    const {clubName,formType,description,questions} = req.body;
+    if(formType == 'general'){
         await regDetails.findOneAndUpdate(
             {clubName: clubName},
             { $set : {description: description , questions: questions}}
         );
-    return res.json({message:"done"});
+        return res.json({message:"done"});
+    }else{
+        const result = await regDetails.findOneAndUpdate(
+            { clubName },
+            {
+              $set: {
+                "clubSigs.$[elem].sigQuestions": questions,
+                "clubSigs.$[elem].sigDescription": description
+              }
+            },
+            {
+              arrayFilters: [{ "elem.clubSigName": formType }],
+              new: true
+            }
+        );
+        return res.json({message:"done"});
+    }
 }
 
 //Function to get details of every student who have registered

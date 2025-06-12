@@ -7,7 +7,7 @@ const scheduleDetails = require('../models/schedule_details');
 async function GetAnnouncement(req , res){
     const annDetails = await AnnouncementDetails.find({});
     if(!annDetails){
-        return resizeBy.json({message: "no announcement"});
+        return res.json({message: "no announcement"});
     }else{
         return res.json(annDetails);
     }
@@ -16,7 +16,7 @@ async function GetAnnouncement(req , res){
 async function GetRegForm(req , res){
     const forDetails = await regDetails.find({});
     if(!forDetails){
-        return resizeBy.json({message: "no registration form"});
+        return res.json({message: "no registration form"});
     }else{
         return res.json(forDetails);
     }
@@ -26,6 +26,9 @@ async function SetStudentData(req , res){
     const {clubName,selectedSigs,group1} = req.body;
     let recDetails;
     for(let i=0; i<selectedSigs.length; i++){
+        if(selectedSigs[i] === ""){
+            break;
+        }
         recDetails = await regDetails.findOneAndUpdate(
             { clubName: clubName, 'clubSigs.clubSigName': selectedSigs[i] },
             { $push: { 'clubSigs.$.studentList': group1 } },  // Update only group1 (index 0)
@@ -33,10 +36,41 @@ async function SetStudentData(req , res){
         );
     }  
     if(!recDetails){
-        return res.json({message: "no student data"});
+        return res.status(404).json({message: "no student data"});
     }else{
         return res.json({message: "done"});
     }
+}
+
+async function SetStudentAssingmentData(req , res){
+    const {clubName,sigName,email,ans} = req.body;
+
+    const doc = await regDetails.findOne({
+        clubName,
+        'clubSigs.clubSigName': sigName,
+        'clubSigs.studentList.email': email
+    });
+
+    if (!doc) {
+        return res.status(404).json({ message: "No data found" });
+    }
+
+    const recDetails = await regDetails.updateOne(
+        { clubName },
+        {
+            $push: {
+                "clubSigs.$[sig].studentList.$[stu].questionans": { $each: ans }
+            }
+        },
+        {
+            arrayFilters: [
+                { "sig.clubSigName": sigName },
+                { "stu.email": email }
+            ]
+        }
+    );
+
+    return res.json({ message: "done" });
 }
 
 async function SetSigPreference(req , res){
@@ -57,7 +91,7 @@ async function SetSigPreference(req , res){
 async function Calender(req , res){
     const calenderDetails = await scheduleDetails.find({});
     if(!calenderDetails){
-        return resizeBy.json({message: "no announcement"});
+        return res.json({message: "no announcement"});
     }else{
         return res.json(calenderDetails);
     }
@@ -68,6 +102,7 @@ module.exports ={
     GetAnnouncement,
     GetRegForm,
     SetStudentData,
+    SetStudentAssingmentData,
     SetSigPreference,
     Calender
 }
