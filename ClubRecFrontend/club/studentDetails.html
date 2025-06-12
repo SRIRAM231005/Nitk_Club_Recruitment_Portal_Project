@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../utils/style.css">
+    <link rel="stylesheet" href="studentDetails.css">
+    <link rel="stylesheet" href="../utils/popups.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,
+    700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Student Details</title>
+</head>
+<body>
+    <div class="loader">
+        <span class="loading-text">Loading</span>
+    </div>
+    <div class="clubHeader">
+        <div style="display: flex;align-items: center;gap: 20px;">
+            <img src="#" id="clubImage">
+            <div class="h1"></div>
+            <div class="h2"></div>
+        </div>
+        <div>
+            <img src="../images/nitkLogo.png" style="height: 80px; width: 80px;">
+        </div>
+    </div>
+
+    <div class="studentDetailsHeader">
+        <div class="Header1">Student Management</div>
+        <div class="Header2">Manage interview candidates and track their selection status</div>
+    </div>
+    <div id="ControlData">
+        <div class="inputBox" style="height: 40px; width: 250px;"><input type="text" class="InputID" placeholder="Search Student..."></div>
+        <div class="toolsDiv">
+            <div class="FilterDiv">
+                <div class="Filter">
+                    <i class="lucidicons" data-lucide="Filter"></i>
+                    <div class="FilterLabel">Filter</div>
+                    <i class="lucidicons" data-lucide="chevron-down" onclick="showFilterDropdown();"></i>
+                </div>
+                <div class="filterDropdown Dropdown1">
+                    <div><input type="checkbox" class="checkbox" style="margin-right: 5px;" value="1">selected</div>
+                    <div><input type="checkbox" class="checkbox" style="margin-right: 5px;" value="2">without panel</div>
+                    <div class="selectBox">
+                        <select id="panelSelect">
+                            <option value="" disabled selected>Select a Panel</option>
+                            <option value="1">Panel 1</option>
+                            <option value="2">Panel 2</option>
+                            <option value="3">Panel 3</option>
+                            <option value="4">Panel 4</option>
+                            <option value="5">Panel 5</option>
+                        </select>
+                    </div>
+                    <button class="ApplyFilters" style="width: 100%; margin-top: 10px;" onclick="ApplyFilters();">Apply Filters</button>
+                </div>
+            </div>
+            <div class="ExportDiv">
+                <div class="Export">
+                    <i class="lucidicons" data-lucide="File"></i>
+                    <div>Export</div>
+                    <i class="lucidicons" data-lucide="chevron-down" onclick="showExportDropdown();"></i>
+                </div>
+                <div class="exportDropdown Dropdown">
+                    <div onclick="Export();">Selected students</div>
+                    <div onclick="ExportNotSelected();">Not Selected students</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="FullData">
+        <div class="scrollTable">
+            <div class="tableHeader">
+                <div>Name</div>
+                <div>Schedule</div>
+                <div>Interviewer</div>
+                <div>Roll Number</div>
+                <div>Email Id</div>
+                <div>Contact Number</div>
+                <div>Selection</div>
+                <div>More Details</div>
+                <div>Remove</div>
+            </div>
+            <div class="table">
+            </div>
+        </div>
+
+        <div id="pagination-controls-div">
+            <div class="studentNumber"></div>
+            <div id="pagination-controls">
+                <button id="prev" onclick="changePage('prev')">Previous</button>
+                <div class="currentPage"></div>
+                <button id="next" onclick="changePage('next')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popupTag"></div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../utils/popups.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="studentDetails.js"></script>
+</body>
+</html>

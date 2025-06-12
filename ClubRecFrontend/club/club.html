@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="clubDashbord.css">
+    <link rel="stylesheet" href="../utils/style.css">
+    <link rel="stylesheet" href="../utils/popups.css">
+    <title>Club Details</title>
+</head>
+<body>
+    <div class="loader">
+        <span class="loading-text">Loading</span>
+    </div>
+    <div class="clubHeader">
+        <div style="display: flex;align-items: center;gap: 20px;">
+            <img src="#" id="clubImage">
+            <div class="h1"></div>
+        </div>
+        <div>
+            <img src="../images/nitkLogo.png" style="height: 80px; width: 80px;">
+        </div>
+    </div>
+    <div class="Main">
+        <div class="Anno" onclick="announcementForm();">
+            <div class="announcementHeader">Make Announcement</div>
+            <div class="announcementDescription">Create and publish announcements for events and updates</div>
+            <div style="display: flex; justify-content: center;"><div class="announcementButton Button1">Make Announcement</div></div>
+        </div>
+        <div class="RegFo" onclick="RegForm();">
+            <div class="announcementHeader">Registration & Assignment Forms</div>
+            <div class="announcementDescription">Create and manage registration or assignment forms for your SIGs</div>
+            <div style="display: flex; justify-content: center;"><div class="announcementButton Button2">Release Form</div></div>
+        </div>
+        <div class="Resu" onclick="ReleaseResult();">
+            <div class="announcementHeader">Declare Results</div>
+            <div class="announcementDescription">Publish results and outcomes for completed SIGs</div>
+            <div style="display: flex; justify-content: center;"><div class="announcementButton Button3">Declare Results</div></div>
+        </div>
+    </div>
+    <div class="fullClubBody">
+        <div class="BodyHeader">Rounds Schedule</div>
+        <div class="bodyHead">
+            <div class="columnHeader">Sig Name</div>
+            <div class="roundsHeader"></div>
+            <div class="columnHeader">Set Dates</div>
+        </div>
+        <div class="clubBody"></div>
+    </div>
+    
+    <div class="fullRegBody">
+        <div class="BodyHeader">Student Details</div>
+        <div class="RegbodyHead">
+            <div class="columnHeader">Sig Name</div>
+            <div class="roundsHeader1"></div>
+        </div>
+        <div class="RegBody"></div>
+    </div>
+    
+    <div class="popupTag"></div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../utils/popups.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="club_details.js"></script>
+</body>
+</html>

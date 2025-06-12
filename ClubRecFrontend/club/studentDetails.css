@@ -1,0 +1,333 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+    width: 100%;
+}
+body{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(16, 16, 16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000000;
+    transition: opacity 0.75s, visibility 0.75s;
+}
+.loading-text {
+    position: absolute;  
+    color: white;  
+    font-size: 20px; 
+}
+.loader-hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+.loader::before{
+    content: '';
+    width: 120px;
+    height: 120px;
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px solid rgb(16, 16, 16);
+    border-top: 5px solid rgb(220, 15, 15);
+    border-left: 5px solid rgb(220, 15, 15);
+    border-radius: 50%;
+    animation: spin1 1s linear infinite;
+}
+@keyframes spin1 {
+    from{
+        transform: translate(-50%,-50%) rotate(0deg);
+    }to{
+        transform: translate(-50%,-50%) rotate(-360deg);
+    }
+}
+.loader::after{
+    content: '';
+    width: 140px;
+    height: 140px;
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px solid rgb(16, 16, 16);
+    border-top: 5px solid rgba(224, 3, 3, 0.5);
+    border-left: 5px solid rgba(224, 3, 3, 0.5);
+    border-radius: 50%;
+    animation: spin2 1.5s linear infinite;
+}
+@keyframes spin2 {
+    from{
+        transform: translate(-50%,-50%) rotate(0deg);
+    }to{
+        transform: translate(-50%,-50%) rotate(360deg);
+    }
+}
+.studentDetailsHeader{
+    display: block;
+    padding: 50px 200px;
+}
+.Header1{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.Header2{
+    font-size: 18px;
+    color: #bebbbb;
+}
+#ControlData{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    height: 150px;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    z-index: 50;
+}
+.toolsDiv{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.ExportDiv , .FilterDiv{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.Filter , .Export{
+    padding: 10px 10px;
+    background-color: brown;/*rgb(220, 15, 15)*/
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    cursor: pointer;
+}
+.exportDropdown{
+    display: none;
+}
+.filterDropdown{
+    display: none;
+}
+.Dropdown , .Dropdown1{
+    border-radius: 10px;
+    border: 1px solid rgba(144, 142, 142, 0.424);
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    padding: 10px;
+    color: white;
+    background-color: #101010;
+    width: 200px;
+    z-index: 100;
+}
+.Dropdown div, .Dropdown1 div{
+    color: #bebbbb;
+    padding: 10px;
+    cursor: pointer;
+}
+.Dropdown div:hover{
+    color: white;
+    background-color: brown;
+}
+select{
+    background-color: rgb(45, 45, 45);
+    border: none;
+    color: white;
+    width: 140px;
+    font-size: 16px;
+    outline: none;
+}
+.selectBox{
+    background-color: rgb(45, 45, 45);
+    padding: 10px 12px;
+    width: 160px;
+    border-radius: 5px;
+    border: 1px solid rgba(144, 142, 142, 0.424);
+}
+.FilterBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+.FilterBox div{
+    padding: 10px;
+    background-color: rgb(220, 15, 15);
+    color: white;
+    text-align: center;
+    width: 120px;
+    cursor: pointer;
+}
+.poke9{
+    display: grid;
+    grid-template-columns: repeat(9 , 140px);
+    gap: 30px;
+    margin: 0;
+}
+.poke9 div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+}
+#FullData{
+    position: absolute;
+    right: 50%;
+    top: 32%;
+    transform: translateX(50%);
+    width: 80%;
+    height: fit-content;
+}
+.scrollTable{
+    overflow-x: auto;
+}
+.table{
+    display: grid;
+    grid-template-rows: auto;
+    gap: 0px;
+    /*white-space: nowrap;*/ 
+}
+.interviewer{
+    text-align: center;
+}
+.poke9:nth-child(even) {
+    background-color: #2f2f2f;  
+  }
+  
+  .poke9:nth-child(odd) {
+    background-color: #202020;  
+  }
+.tableHeader{
+    display: grid;
+    grid-template-columns: repeat(9 , 140px);
+    background-color: brown; 
+    /*width: 100%;*/
+    white-space: nowrap;
+    gap: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}  
+.tableHeader div:nth-child(n) {
+    background-color: brown; 
+    padding: 15px;
+}
+.tableHeader div:nth-child(1) {
+    border-top-left-radius: 10px;
+}
+.tableHeader div:last-child {
+    border-top-right-radius: 10px;
+}
+.detail{
+    text-align: center;
+    margin: 10px;
+}
+.otherDetail{
+    background-color: #2f2f2f;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.otherDetailHeader{
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #bebbbb;
+}
+.schedule1{
+    display: block;
+}
+.Ans{
+    margin-top: 10px;
+}
+.d0 , .d10 , .d11{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50%);
+    width: 450px;
+    padding: 30px;
+    font-family: 'Roboto' , sans-serif;
+    background-color: rgb(31, 30, 30);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: 18px;
+}
+.clubHeader{
+    width: 100%;
+}
+#pagination-controls-div{
+    /*margin: 30px;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #101010;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: relative;
+}
+.studentNumber{
+    color: #bebbbb;
+}
+#pagination-controls{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /*position: absolute;
+    right: 0%;*/
+}
+#pagination-controls button{
+    width: 100px;
+}
+#pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+@media (max-width: 1085px){
+    .FullData{
+        min-width: 90%;
+    }
+    .clubHeader{
+        font-size: 18px;
+    }
+    .Search{
+        display: none;
+    }
+    .Dropdown{
+        left: 30px;
+    }
+}
+::-webkit-scrollbar{
+    height: 0.8em;
+    width: 0.8em;
+}
+::-webkit-scrollbar-track{
+    background-color: #e7e3e3;
+    border-radius: 100vw;
+}
+::-webkit-scrollbar-thumb{
+    background-color: rgb(164, 163, 163);
+    border-radius: 100vw;
+    border: 1px solid #e7e3e3;
+}
