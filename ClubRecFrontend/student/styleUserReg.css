@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+    width: 100%;
+}
+body{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.header1{
+    width: 100%;
+}
+.regdiv{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:rgb(31, 30, 30);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 30px;
+}
+.RegButton{
+    width: 100%;
+}
+.feedbackText{
+    font-family: 'Roboto' , sans-serif;
+    font-size: 14px;
+    margin-top: 10px;
+}
+@media (max-width: 920px){
+    .imgdiv3{
+        display: none;
+    }
+}
