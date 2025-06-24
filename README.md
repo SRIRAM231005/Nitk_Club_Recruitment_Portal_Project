@@ -17,7 +17,7 @@ The Nitk Club Recruitment Portal is a web-based application designed to streamli
 https://drive.google.com/file/d/1JU-67k7BVTULWXSeKveyiBpKWjdr6Uu1/view?usp=sharing
 
 ## Github Traffic
-<img src="./github-traffic.png" width="600" alt="GitHub clone stats on release" />
+<img src="./github_traffic.png" width="600" alt="GitHub clone stats on release" />
 
 > Received 99+ GitHub clones and 78 unique cloners within 24 hours of public release (June 12, 2025)
 
