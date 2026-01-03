@@ -14,12 +14,7 @@
 The Nitk Club Recruitment Portal is a web-based application designed to streamline and manage the recruitment process for various clubs at NITK. It allows students to apply for club positions, facilitates round-wise shortlisting, and provides an intuitive interface for both admins and users. 
 
 ## Demo Video
-https://drive.google.com/file/d/14ysd8cvHBGQLY4VT8hso7suwVXvPbP1X/view?usp=sharing
-
-## Github Traffic
-<img src="./github_traffic.png" width="600" alt="GitHub clone stats on release" />
-
-> Received 99+ GitHub clones and 78 unique cloners within 24 hours of public release (June 12, 2025)
+[![Watch the demo](https://img.youtube.com/vi/pPrfedyHHBI/hqdefault.jpg)](https://www.youtube.com/watch?v=pPrfedyHHBI)
 
 ## Features
 - **Club Registration**: Club admins can register their club for recruitments
