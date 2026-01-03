@@ -3,7 +3,6 @@
 ## Table of Contents
 - [Overview](#overview)
 - [Demo Video](#demo-video)
-- [Github Traffic](#github-traffic)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation and Setup](#installation-and-setup)
